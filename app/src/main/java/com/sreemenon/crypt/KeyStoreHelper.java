@@ -21,27 +21,70 @@ import java.util.Calendar;
 import javax.security.auth.x500.X500Principal;
 
 /**
- * Created by Admin on 18/12/2015.
+ * Created by Sree on 18/12/2015.
+ */
+
+/**
+ *   A helper class that deals everything related to Keystore
  */
 public class KeyStoreHelper {
     private KeyStore keyStore;
     private KeyStore.PrivateKeyEntry privateKeyEntry;
 
+    /**
+     *Default constructor
+     *
+     * @param keyStoreType the keystore type in string
+     */
     public KeyStoreHelper(String keyStoreType)throws KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException{
         keyStore = KeyStore.getInstance(keyStoreType);
         keyStore.load(null);
     }
 
+    /**
+     * returns the private key with the specified alias
+     *
+     * @param alias the alias of the keypair
+     *
+     * @return RSAPrivateKey of the keypair with 'alias' as its alias
+     *
+     * @throws NoSuchAlgorithmException
+     * @throws UnrecoverableEntryException
+     * @throws KeyStoreException
+     */
     public RSAPrivateKey getPrivateKey(String alias) throws NoSuchAlgorithmException, UnrecoverableEntryException, KeyStoreException{
         privateKeyEntry = (KeyStore.PrivateKeyEntry)keyStore.getEntry(alias, null);
         return (RSAPrivateKey)privateKeyEntry.getPrivateKey();
     }
 
+    /**
+     * returns the public key with the specified alias
+     *
+     * @param alias alias the alias of the keypair
+     *
+     * @return RSAPublicKey of the keypair with 'alias' as its alias
+     *
+     * @throws NoSuchAlgorithmException
+     * @throws UnrecoverableEntryException
+     * @throws KeyStoreException
+     */
     public RSAPublicKey getPublicKey(String alias)throws NoSuchAlgorithmException, UnrecoverableEntryException, KeyStoreException{
         privateKeyEntry = (KeyStore.PrivateKeyEntry)keyStore.getEntry(alias, null);
         return (RSAPublicKey)privateKeyEntry.getCertificate().getPublicKey();
     }
 
+    /**
+     * creates a new keypair with given alias and returns the publickey
+     *
+     * @param alias alias the alias of the keypair
+     * @param context application context for creating the keypair
+     *
+     * @return RSAPublicKey of the keypair generated
+     *
+     * @throws NoSuchAlgorithmException
+     * @throws NoSuchProviderException
+     * @throws InvalidAlgorithmParameterException
+     */
     public RSAPublicKey createNewKeyPair(String alias, Context context)throws NoSuchAlgorithmException, NoSuchProviderException, InvalidAlgorithmParameterException{
         Calendar notBefore = Calendar.getInstance();
         Calendar notAfter = Calendar.getInstance();
@@ -60,6 +103,11 @@ public class KeyStoreHelper {
         return (RSAPublicKey)kp.getPublic();
     }
 
+    /**
+     * Getter for the keystore variable
+     *
+     * @return keystore variable
+     */
     public KeyStore getKeystore(){
         return keyStore;
     }

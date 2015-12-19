@@ -39,7 +39,7 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * A class to make more easy and simple the encrypt routines, this is the core of Encryption library
  */
-public class SreeCrypt {
+public class Crypt {
 
     /**
      * We use this tag to log errors on LogCat, never the password or sensible data
@@ -56,7 +56,7 @@ public class SreeCrypt {
      * The private and unique constructor, you should use the Encryption.Builder to build your own
      * instance or get the default proving just the sensible information about encryption
      */
-    private SreeCrypt(Builder builder) {
+    private Crypt(Builder builder) {
         mBuilder = builder;
     }
 
@@ -64,7 +64,7 @@ public class SreeCrypt {
      * @return an default encryption instance or {@code null} if occur some Exception, you can
      * create yur own Encryption instance using the Encryption.Builder
      */
-    public static SreeCrypt getDefault(String key, String salt, byte[] iv) {
+    public static Crypt getDefault(String key, String salt, byte[] iv) {
         try {
             return Builder.getDefaultBuilder(key, salt, iv).build();
         } catch (NoSuchAlgorithmException e) {
@@ -379,10 +379,10 @@ public class SreeCrypt {
          * @throws NullPointerException     if the SecureRandomAlgorithm is {@code null} or if the
          *                                  IV byte array is null
          */
-        public SreeCrypt build() throws NoSuchAlgorithmException {
+        public Crypt build() throws NoSuchAlgorithmException {
             setSecureRandom(SecureRandom.getInstance(getSecureRandomAlgorithm()));
             setIvParameterSpec(new IvParameterSpec(getIv()));
-            return new SreeCrypt(this);
+            return new Crypt(this);
         }
 
         //region getters and setters

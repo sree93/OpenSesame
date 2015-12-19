@@ -18,7 +18,7 @@ import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.Switch;
 
-import com.sreemenon.crypt.SreeCrypt;
+import com.sreemenon.crypt.Crypt;
 import com.sreemenon.sqlite.DBTransactions;
 
 import net.sqlcipher.Cursor;
@@ -236,7 +236,7 @@ public class AddFragment extends Fragment {
 
                 String key = String.valueOf(privKey.getModulus());
 
-                SreeCrypt sreeCrypt = SreeCrypt.getDefault(key, salt, new byte[16]);
+                Crypt sreeCrypt = Crypt.getDefault(key, salt, new byte[16]);
 
                 result = sreeCrypt.decryptOrNull(ticket);
             }catch(KeyStoreException | NoSuchAlgorithmException | UnrecoverableEntryException | IOException e) {

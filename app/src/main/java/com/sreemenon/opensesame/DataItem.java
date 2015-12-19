@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
 import com.sreemenon.crypt.Lamp;
-import com.sreemenon.crypt.SreeCrypt;
+import com.sreemenon.crypt.Crypt;
 import com.sreemenon.sqlite.DBTransactions;
 
 import net.sqlcipher.Cursor;
@@ -127,7 +127,7 @@ public class DataItem implements Serializable{
             String ticket = "";
             try{
                 String key = String.valueOf(Lamp.decryptGenie(website + uname, genie));
-                SreeCrypt sreeCrypt = SreeCrypt.getDefault(key, salt, new byte[16]);
+                Crypt sreeCrypt = Crypt.getDefault(key, salt, new byte[16]);
                 String pass = params[0];
                 ticket = sreeCrypt.encrypt(pass);
             }catch(KeyStoreException | NoSuchProviderException | IllegalBlockSizeException | NoSuchAlgorithmException | UnrecoverableEntryException | IOException | CertificateException | InvalidKeySpecException | NoSuchPaddingException | InvalidAlgorithmParameterException | InvalidKeyException | BadPaddingException e) {
@@ -182,7 +182,7 @@ public class DataItem implements Serializable{
                 String[] genies = Lamp.encryptGenie(website + uname, parent.getContext());
                 contentValues.put("genie", genies[0]);
 
-                SreeCrypt sreeCrypt = SreeCrypt.getDefault(String.valueOf(genies[1]), salt, new byte[16]);
+                Crypt sreeCrypt = Crypt.getDefault(String.valueOf(genies[1]), salt, new byte[16]);
                 ticket = sreeCrypt.encrypt(pass);
             }catch(InvalidKeySpecException | BadPaddingException | IllegalBlockSizeException | InvalidAlgorithmParameterException | KeyStoreException | IOException | CertificateException | NoSuchAlgorithmException | UnrecoverableEntryException | NoSuchProviderException | NoSuchPaddingException | InvalidKeyException e){
                 e.printStackTrace();

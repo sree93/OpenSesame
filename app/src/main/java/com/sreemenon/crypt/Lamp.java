@@ -24,10 +24,30 @@ import javax.crypto.CipherOutputStream;
 import javax.crypto.NoSuchPaddingException;
 
 /**
- * Created by Admin on 18/12/2015.
+ * Created by Sree on 18/12/2015.
+ */
+
+/**
+ * Helper class for encrypting and decrypting the intermediate key
  */
 public class Lamp {
 
+    /**
+     *
+     * @param alias alias for pulling key from keystore
+     * @param genie the intermediate key
+     *
+     * @return Decrypted ntermediate key
+     *
+     * @throws KeyStoreException
+     * @throws IOException
+     * @throws CertificateException
+     * @throws NoSuchAlgorithmException
+     * @throws UnrecoverableEntryException
+     * @throws NoSuchProviderException
+     * @throws NoSuchPaddingException
+     * @throws InvalidKeyException
+     */
     public static String decryptGenie(String alias, String genie)throws KeyStoreException, IOException, CertificateException, NoSuchAlgorithmException, UnrecoverableEntryException, NoSuchProviderException, NoSuchPaddingException, InvalidKeyException {
 
         KeyStoreHelper keyStoreHelper = new KeyStoreHelper("AndroidKeyStore");
@@ -52,6 +72,22 @@ public class Lamp {
         return new String(bytes, 0, bytes.length, "UTF-8");
     }
 
+    /**
+     *
+     * @param alias alias for pulling key from keystore
+     * @param context context to create a new key pair
+     *
+     * @return both plain and encrypted intermediate key
+     * @throws InvalidAlgorithmParameterException
+     * @throws KeyStoreException
+     * @throws IOException
+     * @throws CertificateException
+     * @throws NoSuchAlgorithmException
+     * @throws UnrecoverableEntryException
+     * @throws NoSuchProviderException
+     * @throws NoSuchPaddingException
+     * @throws InvalidKeyException
+     */
     public static String[] encryptGenie(String alias, Context context)throws InvalidAlgorithmParameterException, KeyStoreException, IOException, CertificateException, NoSuchAlgorithmException, UnrecoverableEntryException, NoSuchProviderException, NoSuchPaddingException, InvalidKeyException {
 
         KeyStoreHelper keyStoreHelper = new KeyStoreHelper("AndroidKeyStore");

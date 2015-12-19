@@ -18,7 +18,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.sreemenon.crypt.Lamp;
-import com.sreemenon.crypt.SreeCrypt;
+import com.sreemenon.crypt.Crypt;
 import com.sreemenon.sqlite.DBTransactions;
 
 import net.sqlcipher.Cursor;
@@ -245,7 +245,7 @@ public class MainActivityFragment extends Fragment {
             String result = null;
             try {
                 String key = String.valueOf(Lamp.decryptGenie(website+uname, genie));
-                SreeCrypt sreeCrypt = SreeCrypt.getDefault(key, salt, new byte[16]);
+                Crypt sreeCrypt = Crypt.getDefault(key, salt, new byte[16]);
 
                 result = sreeCrypt.decrypt(ticket);
             }catch(KeyStoreException | NoSuchProviderException | IllegalBlockSizeException | NoSuchAlgorithmException | UnrecoverableEntryException | IOException | CertificateException | InvalidKeySpecException | NoSuchPaddingException | InvalidAlgorithmParameterException | InvalidKeyException | BadPaddingException e) {
