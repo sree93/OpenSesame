@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:gravity="center_vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="72dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primaryTextColor"
+        android:text="Website"
+        android:id="@+id/tvRowWebsite"
+        android:textSize="18sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primaryTextColor"
+        android:text="Uname"
+        android:id="@+id/tvRowUname" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="56dp"
+        android:layout_height="match_parent"
+        android:id="@+id/imgRowLock"
+        android:padding="16dp"
+        android:src="@drawable/ic_lock_open_black_48dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:tint="@color/darkPrimaryColor" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:background="@null"
+        android:id="@+id/imgbtnMore"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_more_vert_black_24dp" />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="#c0c0c0"
+        android:layout_alignBottom="@+id/imgbtnMore"
+        android:layout_marginLeft="72dp"/>
+
+</RelativeLayout>

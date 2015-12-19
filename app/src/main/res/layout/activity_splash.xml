@@ -1,0 +1,28 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.sreemenon.opensesame.SplashActivity"
+    android:background="@color/darkPrimaryColor">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open Sesame"
+        android:id="@+id/tvSplashAppName"
+        android:layout_centerVertical="true"
+        fontPath="fonts/Top_Secret.ttf"
+        android:layout_centerHorizontal="true"
+        android:textSize="50dp"
+        tools:ignore="MissingPrefix"
+        android:textColor="#FFF" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="v"
+        android:id="@+id/tvVersion"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp" />
+</RelativeLayout>
