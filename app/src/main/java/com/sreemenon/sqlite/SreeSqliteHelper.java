@@ -25,6 +25,9 @@ import java.util.Calendar;
 
 import javax.security.auth.x500.X500Principal;
 
+/**
+ * SQLiteOpen Helper implementation
+ */
 public class SreeSqliteHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "open_sesame";
@@ -33,6 +36,11 @@ public class SreeSqliteHelper extends SQLiteOpenHelper {
 
     SQLiteDatabase database;
 
+    /**
+     * Constructor
+     *
+     * @param context context for key pair generation and database initialization
+     */
     public SreeSqliteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
@@ -52,10 +60,17 @@ public class SreeSqliteHelper extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Getter for Database variable
+     * @return
+     */
     protected SQLiteDatabase getDb() {
         return database;
     }
 
+    /**
+     * Close Database variable
+     */
     protected void closeSqlDB(){
         database.close();
     }

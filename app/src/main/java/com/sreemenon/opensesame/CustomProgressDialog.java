@@ -15,7 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * Created by Admin on 14/12/2015.
+ * Created by Sree on 14/12/2015.
+ *
+ * Template Logic for Custom Progress Dialog
  */
 public class CustomProgressDialog extends DialogFragment {
 

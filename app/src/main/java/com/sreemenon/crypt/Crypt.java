@@ -15,7 +15,6 @@ package com.sreemenon.crypt;
 
 import android.os.AsyncTask;
 import android.util.Base64;
-import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
@@ -42,11 +41,6 @@ import javax.crypto.spec.SecretKeySpec;
 public class Crypt {
 
     /**
-     * We use this tag to log errors on LogCat, never the password or sensible data
-     */
-    private static final String TAG = "Encryption";
-
-    /**
      * The Builder used to create the Encryption instance and that contains the information about
      * encryption specifications, this instance need to be private and careful managed
      */
@@ -68,7 +62,6 @@ public class Crypt {
         try {
             return Builder.getDefaultBuilder(key, salt, iv).build();
         } catch (NoSuchAlgorithmException e) {
-            Log.e(TAG, e.getMessage(), e);
             return null;
         }
     }
@@ -126,7 +119,6 @@ public class Crypt {
         try {
             return encrypt(data);
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage(), e);
             return null;
         }
     }
@@ -221,7 +213,6 @@ public class Crypt {
         try {
             return decrypt(data);
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage(), e);
             return null;
         }
     }

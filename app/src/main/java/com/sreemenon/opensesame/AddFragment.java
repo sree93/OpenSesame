@@ -36,6 +36,11 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Created by Sree on 14/12/2015.
+ *
+ * Backend Logic for Adding and Editing an Entry
+ */
 public class AddFragment extends Fragment {
 
     private AutoCompleteTextView actvWebsite;
@@ -78,17 +83,20 @@ public class AddFragment extends Fragment {
         npCharCount.setValue(15);
 
         etPass = (EditText)view.findViewById(R.id.etPass);
+
+        /**
+         * etPass: Text change Logic
+         */
         etPass.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
-            }
-
+            /**
+             * Auto update the switches according to the text in password EditText
+             */
             @Override
             public void afterTextChanged(Editable s) {
                 if(s.length() != 0) {
@@ -115,6 +123,9 @@ public class AddFragment extends Fragment {
         });
 
         btnGenPas = (ImageButton)view.findViewById(R.id.btnGenPass);
+        /**
+         * btnGen OnCLickListener: AutoGenerate a secure password!
+         */
         btnGenPas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -177,6 +188,9 @@ public class AddFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Save or update changes into database
+     */
     public void saveNewPassword() {
         if(isEdit){
             DialogInterface.OnClickListener deleteConfirmListener = new DialogInterface.OnClickListener() {
@@ -189,7 +203,7 @@ public class AddFragment extends Fragment {
                             currRow.updateRow(etPass.getText().toString());
                             break;
                         case DialogInterface.BUTTON_NEGATIVE:
-                            ((MainActivity)getActivity()).switchFragment(R.layout.fragment_main);
+                            ((MainActivity)getActivity()).switchFragment(R.layout.fragment_home);
                     }
                 }
             };
@@ -207,6 +221,9 @@ public class AddFragment extends Fragment {
         }
     }
 
+    /**
+     * AsyncTask for decrypting the password to display when editing the entry!
+     */
     private class DecryptPassword extends AsyncTask<String, Void, String>{
         DialogFragment dialogFragment = new CustomProgressDialog();
 

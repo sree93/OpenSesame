@@ -85,6 +85,7 @@ public class SplashActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             if(!websiteList.equals(null)){
                 boolean flag = true;
+                while (flag) {
                     try {
                         while (splashAnimRunning) {
                             try {
@@ -94,13 +95,13 @@ public class SplashActivity extends AppCompatActivity {
                         }
 
                         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                        intent.putExtra("dataItemList", (Serializable)websiteList);
+                        intent.putExtra("dataItemList", (Serializable) websiteList);
                         startActivity(intent);
                         SplashActivity.this.finish();
                         flag = false;
                     } catch (Exception ex) {
-
                     }
+                }
             }
         }
 

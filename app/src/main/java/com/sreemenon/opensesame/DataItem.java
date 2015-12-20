@@ -28,7 +28,9 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 /**
- * Created by Admin on 12/12/2015.
+ * Created by Sree on 12/12/2015.
+ *
+ * A container class for database data and actions
  */
 public class DataItem implements Serializable{
     private int id;
@@ -43,6 +45,16 @@ public class DataItem implements Serializable{
 
     private AddFragment parent;
 
+    /**
+     * Constructor to create a new DataItem
+     *
+     * @param website website name
+     * @param uname username
+     * @param spl can contain spl chars in password
+     * @param num can contain numeric chars in password
+     * @param ucase can contain uppercase chars in password
+     * @param parent AddFragment instance to create progress dialogs and handle context calls
+     */
     public DataItem(String website, String uname, boolean spl, boolean num, boolean ucase, AddFragment parent) {
         this.website = website;
         this.uname = uname;
@@ -63,6 +75,11 @@ public class DataItem implements Serializable{
         isRead = false;
     }
 
+    /**
+     * Constructor to initialize a new DataItem object from database cursor
+     *
+     * @param cursor Cursor object to load dataitem
+     */
     public DataItem(Cursor cursor){
         id = cursor.getInt(cursor.getColumnIndex("_id"));
         website = cursor.getString(cursor.getColumnIndex("website"));
@@ -81,16 +98,27 @@ public class DataItem implements Serializable{
         isRead = true;
     }
 
+    /**
+     * Insert a new Entry in DB
+     * @param pass the password in string
+     */
     public void insertRow(String pass){
         EncryptPassword encryptPassword = new EncryptPassword();
         encryptPassword.execute(pass);
     }
 
+    /**
+     * Update an Entry in DB
+     * @param pass the password in string
+     */
     public void updateRow(String pass){
         UpdateEntry updateEntry = new UpdateEntry();
         updateEntry.execute(pass);
     }
 
+    /**
+     * AsyncTask to update an entry in DB
+     */
     private class UpdateEntry extends AsyncTask<String, Void, Void> {
         DialogFragment dialogFragment = new CustomProgressDialog();
         ContentValues contentValues;
@@ -119,7 +147,7 @@ public class DataItem implements Serializable{
             parent = null;
             mainActivity.editDataItemList(id, DataItem.this);
             dialogFragment.dismiss();
-            mainActivity.switchFragment(R.layout.fragment_main);
+            mainActivity.switchFragment(R.layout.fragment_home);
         }
 
         @Override
@@ -143,6 +171,9 @@ public class DataItem implements Serializable{
         }
     }
 
+    /**
+     * AsyncTask to Insert a new entry in DB
+     */
     private class EncryptPassword extends AsyncTask<String, Void, Void> {
         DialogFragment dialogFragment = new CustomProgressDialog();
         ContentValues contentValues;
@@ -171,7 +202,7 @@ public class DataItem implements Serializable{
             parent = null;
             mainActivity.addToDataItemList(DataItem.this);
             dialogFragment.dismiss();
-            mainActivity.switchFragment(R.layout.fragment_main);
+            mainActivity.switchFragment(R.layout.fragment_home);
         }
 
         @Override
@@ -197,22 +228,47 @@ public class DataItem implements Serializable{
         }
     }
 
+    /**
+     * Getter
+     *
+     * @return id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Setter
+     *
+     * @param id id
+     */
     public void setId(int id){
         this.id = id;
     }
 
+    /**
+     * Getter
+     *
+     * @return website
+     */
     public String getWebsite() {
         return website;
     }
 
+    /**
+     * Getter
+     *
+     * @return uname
+     */
     public String getUname() {
         return uname;
     }
 
+    /**
+     * Getter
+     *
+     * @return salt
+     */
     public String getSalt() {
         return salt;
     }

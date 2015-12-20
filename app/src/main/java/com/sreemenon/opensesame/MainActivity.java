@@ -2,10 +2,9 @@ package com.sreemenon.opensesame;
 
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.transition.TransitionManager;
 import android.view.Menu;
@@ -17,7 +16,11 @@ import java.util.List;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-
+/**
+ * Created by Sree on 19/10/2015.
+ *
+ * MainActivity class
+ */
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
@@ -37,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchFragment(R.layout.fragment_main);
+                switchFragment(R.layout.fragment_home);
             }
         });
         toolbar.setVisibility(View.GONE);
@@ -46,13 +49,23 @@ public class MainActivity extends AppCompatActivity {
         if(dataItemList == null)
             dataItemList = (List<DataItem>)extras.getSerializable("dataItemList");
 
-        getSupportFragmentManager().beginTransaction().add(R.id.mainFragmentContainer, MainActivityFragment.newInstance()).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.mainFragmentContainer, HomeFragment.newInstance()).commit();
     }
 
+    /**
+     * Getter for the DataItemList
+     *
+     * @return dataItemList: list of all dataItems
+     */
     public List<DataItem> getDataItemList(){
         return dataItemList;
     }
 
+    /**
+     * Delete an entry from dataItemList and refreshing the recyclerview without pinging the DB
+     *
+     * @param id the id of dataItem to be deleted
+     */
     public void deleteFromDataItemList(int id){
         for(int i = 0; i < dataItemList.size(); i++){
             if(dataItemList.get(i).getId() == id) {
@@ -61,16 +74,28 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.mainFragmentContainer);
-        if(fragment instanceof MainActivityFragment){
-            ((MainActivityFragment)fragment).refreshAdapter();
+        if(fragment instanceof HomeFragment){
+            ((HomeFragment)fragment).refreshAdapter();
         }
     }
 
+    /**
+     * Edit an entry from dataItemList and refreshing the recyclerview without pinging the DB      *
+     *
+     * @param id the id of dataItem to be edited
+     * @param item the dataItem to be replaced with
+     */
     public void editDataItemList(int id, DataItem item){
         deleteFromDataItemList(id);
         addToDataItemList(item);
     }
 
+    /**
+     * Add an entry to dataItemList and refreshing the recyclerview without pinging the DB
+     * Also it sorts the list in ascending order (website,uname)
+     *
+     * @param item the dataItem to be added
+     */
     public void addToDataItemList(DataItem item){
         if(dataItemList.size() == 0){
             dataItemList.add(item);
@@ -88,10 +113,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * get the position or index of the dataitem to be edited
+     *
+     * @return index of the dataitem
+     */
     public int getEditPosition() {
         return editPosition;
     }
 
+    /**
+     * set the position or index of the dataitem to be edited
+     * @param editPosition
+     */
     public void setEditPosition(int editPosition) {
         this.editPosition = editPosition;
     }
@@ -127,13 +161,18 @@ public class MainActivity extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
+    /**
+     * Switch between the fragments
+     *
+     * @param fragmentId the layout id of the fragment to be replaced with
+     */
     public void switchFragment(int fragmentId){
         switch (fragmentId){
-            case R.layout.fragment_main:
+            case R.layout.fragment_home:
                 toolbar.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.toolbar_slide_up));
                 TransitionManager.beginDelayedTransition(toolbar);
                 toolbar.setVisibility(View.GONE);
-                getSupportFragmentManager().beginTransaction().replace(R.id.mainFragmentContainer, MainActivityFragment.newInstance()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.mainFragmentContainer, HomeFragment.newInstance()).commit();
                 break;
             case R.layout.fragment_add:
                 toolbar.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.toolbar_slide_down));
@@ -150,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.mainFragmentContainer);
         if(fragment instanceof AddFragment){
-            switchFragment(R.layout.fragment_main);
+            switchFragment(R.layout.fragment_home);
         }else {
             super.onBackPressed();
         }
